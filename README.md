@@ -30,12 +30,13 @@ Steam and torrents get the speed of all your networks together.
 ## What it does
 
 <p align="center">
-  <img src="docs/main.jpg" width="320" alt="NetBraid combining Ethernet, Wi-Fi and a phone, with a live chart of each network" />
+  <img src="docs/main.jpg" width="320" alt="NetBraid braiding Ethernet, Wi-Fi and a phone into one line, each strand as thick as its share of traffic" />
   &nbsp;
   <img src="docs/settings.jpg" width="320" alt="NetBraid settings with the update check and the About section" />
 </p>
 
-- **Live chart** of the last minute, one band per network, stacked into your total speed.
+- **Your networks, braided.** Each network is a strand as thick as its share of the traffic, woven into one line
+  while NetBraid is on and lying apart while it is off, with the last minute of speed underneath.
 - **Health checks that fit real networks.** Each network is checked against four global endpoints and three inside
   Iran at once. A network that only reaches in-country addresses is marked *In-country only* and used last, and
   real traffic counts as proof that a network works, so a blocked probe can't take a good network out.
