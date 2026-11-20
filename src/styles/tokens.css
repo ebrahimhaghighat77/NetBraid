@@ -1,0 +1,27 @@
+:root {
+  --ink: 18 22 31;
+  --panel: #ffffff0a;
+  --panel-2: #ffffff12;
+  --line: #ffffff14;
+  --text: #eef1f7;
+  --text-2: #aeb6c8;
+  --text-3: #727b92;
+  --accent: #5eead4;
+  --on-accent: #06231f;
+  --warn: #ffd166;
+  --bad: #ff7b7b;
+  --net-wifi: #58b8ff;
+  --net-eth: #b18cff;
+  --net-phone: #ffb454;
+  --net-spare-1: #ff7ab6;
+  --net-spare-2: #f2e36b;
+  --net-spare-3: #7f95ff;
+  --net-spare-4: #ff8f6b;
+
+  --font: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-num: Bahnschrift, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-log: "Cascadia Mono", Consolas, monospace;
+  --r-sm: 5px;
+  --r: 8px;
+  --r-lg: 12px;
+}

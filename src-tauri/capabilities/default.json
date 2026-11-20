@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "What the popup may use.",
+  "windows": ["popup"],
+  "permissions": ["core:default"]
+}
