@@ -45,6 +45,8 @@ impl Policy {
     }
 }
 
+type Tier = (bool, bool, bool);
+
 /// The network a rule asks for, and whether the others may stand in for it.
 pub type LinkPin<'a> = Option<(&'a str, bool)>;
 
@@ -117,7 +119,7 @@ impl Picker {
     /// come before failing ones, those reaching everything before those only
     /// reaching the country, and backups last.
     fn candidates(&self, policy: &Policy, exclude: &[String]) -> Vec<(Arc<Link>, u32)> {
-        let mut found: Vec<(Arc<Link>, u32, (bool, bool, bool))> = self
+        let mut found: Vec<(Arc<Link>, u32, Tier)> = self
             .links
             .all()
             .into_iter()

@@ -3,7 +3,7 @@ import { ChevronLeft, Minus } from "lucide-react";
 import { api } from "../core/api";
 import type { Tone } from "../lib/summary";
 import { IconButton } from "./IconButton";
-import { Mark } from "./Mark";
+import { Logo } from "./Logo";
 import { Switch } from "./Switch";
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 export function Header({ on, status, tone, disabled, onPower }: Props) {
   return (
     <header className="header">
-      <Mark lit={on} />
+      <Logo size={30} lit={on} />
       <div className="title">
         <span className="app-name">NetBraid</span>
         <span className="status" role="status">

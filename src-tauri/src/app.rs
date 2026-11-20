@@ -23,6 +23,8 @@ const RESTART_WINDOW: Duration = Duration::from_secs(600);
 const REFRESH_EVERY: u64 = 3;
 const SAVE_USAGE_EVERY: u64 = 30;
 
+type FlowCounts = (Option<Instant>, HashMap<u64, (u64, u64)>);
+
 pub struct Core {
     pub links: Arc<LinkSet>,
     pub picker: Arc<Picker>,
@@ -36,7 +38,7 @@ pub struct Core {
     pub busy: AtomicBool,
     pub error: Mutex<Option<String>>,
     pub update: Mutex<UpdateState>,
-    pub flow_seen: Mutex<(Option<Instant>, HashMap<u64, (u64, u64)>)>,
+    pub flow_seen: Mutex<FlowCounts>,
     restarts: Mutex<Vec<Instant>>,
     carried: Mutex<HashMap<String, u64>>,
     total: AtomicU64,

@@ -3,7 +3,7 @@ import { ChevronRight, CodeXml, Globe, UserRound } from "lucide-react";
 import { api, message } from "../core/api";
 import type { OptionChange, Snapshot } from "../core/types";
 import { SubHeader } from "../components/Header";
-import { Mark } from "../components/Mark";
+import { Logo } from "../components/Logo";
 import { Switch } from "../components/Switch";
 
 interface Props {
@@ -210,7 +210,7 @@ function About({ version }: { version: string }) {
   return (
     <div className="about">
       <div className="about-head">
-        <Mark size={34} />
+        <Logo size={42} />
         <div className="row-text">
           <span className="about-name">NetBraid {version}</span>
           <span className="row-desc">Made by SciDev. Free and open source under the MIT License.</span>

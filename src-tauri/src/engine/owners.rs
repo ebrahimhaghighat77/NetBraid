@@ -5,11 +5,13 @@ use std::time::Instant;
 use super::TUN_ADDR;
 use crate::win;
 
+type Reading = (Instant, HashMap<(bool, u16), u32>);
+
 /// Socket owners on the adapter. Reading the table takes a millisecond or
 /// more, so flows opened before the last reading share it.
 #[derive(Default)]
 pub struct Owners {
-    table: Mutex<Option<(Instant, HashMap<(bool, u16), u32>)>>,
+    table: Mutex<Option<Reading>>,
 }
 
 impl Owners {

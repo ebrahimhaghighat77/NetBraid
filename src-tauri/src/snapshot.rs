@@ -103,7 +103,7 @@ fn shares(values: &[u64]) -> Vec<u8> {
     let total: u64 = values.iter().sum();
     values
         .iter()
-        .map(|v| (if total == 0 { 0 } else { (v * 100 + total / 2) / total }) as u8)
+        .map(|v| (v * 100 + total / 2).checked_div(total).unwrap_or(0) as u8)
         .collect()
 }
 

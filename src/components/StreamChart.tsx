@@ -3,13 +3,12 @@ import type { LinkView } from "../core/types";
 import { SAMPLES, bandPath, linePath, totals, window60 } from "../lib/stream";
 
 const W = 328;
-const H = 78;
-const TOP = 8;
+const TOP = 4;
 // One sample sits off the right edge and slides in over the next second.
 const STEP = W / (SAMPLES - 2);
 const FLOOR = 64 * 1024;
 
-export function StreamChart({ links, colors }: { links: LinkView[]; colors: Map<string, string> }) {
+export function StreamChart({ links, colors, height: H = 78 }: { links: LinkView[]; colors: Map<string, string>; height?: number }) {
   const series = links.map((l) => window60(l.history));
   const sum = totals(series);
   const peak = Math.max(FLOOR, ...sum);

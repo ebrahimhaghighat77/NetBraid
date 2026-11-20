@@ -5,6 +5,7 @@ import { api, message } from "../core/api";
 import type { Snapshot } from "../core/types";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { Hero } from "../components/Hero";
 import { NetworkCard } from "../components/NetworkCard";
 import { StreamChart } from "../components/StreamChart";
 import { linkColors } from "../lib/colors";
@@ -57,21 +58,31 @@ export function Home({ snapshot, onSnapshot, onOpen }: Props) {
         </div>
       )}
 
-      {snapshot.on ? (
-        <Throughput snapshot={snapshot} colors={colors} />
-      ) : (
-        <section className="callout">
-          <span className="callout-title">Add your networks together</span>
-          <p className="callout-body">
-            Each new connection goes out on the network with the most room. Browsers, download managers, Steam
-            and torrents get the combined speed.
-          </p>
-          <button type="button" className="btn-primary" disabled={busy} onClick={() => power(true)}>
-            <ShieldCheck size={14} />
-            Turn on
-          </button>
-        </section>
-      )}
+      <section className={snapshot.on ? "hero" : "hero off"} aria-label="Speed">
+        {snapshot.on && <Speed snapshot={snapshot} />}
+        <Hero links={strandsOf(snapshot)} colors={colors} on={snapshot.on} />
+        {snapshot.on ? (
+          <>
+            <StreamChart links={inUse(snapshot.links)} colors={colors} height={34} />
+            <div className="axis">
+              <span>Last minute</span>
+              <span>Now</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <span className="callout-title">Braid your networks into one</span>
+            <p className="callout-body">
+              Each new connection goes out on the network with the most room, so browsers, download managers, Steam
+              and torrents get the speed of all of them together.
+            </p>
+            <button type="button" className="btn-primary" disabled={busy} onClick={() => power(true)}>
+              <ShieldCheck size={14} />
+              Turn on
+            </button>
+          </>
+        )}
+      </section>
 
       <div className="divider" />
       <section className="networks" aria-label="Networks">
@@ -104,31 +115,28 @@ export function Home({ snapshot, onSnapshot, onOpen }: Props) {
   );
 }
 
-function Throughput({ snapshot, colors }: { snapshot: Snapshot; colors: Map<string, string> }) {
-  const links = inUse(snapshot.links);
+function strandsOf(snapshot: Snapshot) {
+  const used = inUse(snapshot.links);
+  return used.length > 0 ? used : snapshot.links.filter((l) => l.present);
+}
+
+function Speed({ snapshot }: { snapshot: Snapshot }) {
   const [value, unit] = splitRate(useEased(snapshot.rxRate));
-  const peak = Math.max(...totals(links.map((l) => window60(l.history))));
+  const peak = Math.max(...totals(inUse(snapshot.links).map((l) => window60(l.history))));
 
   return (
-    <section className="hero" aria-label="Speed">
-      <div className="hero-top">
-        <div className="total">
-          <span className="total-num">{value}</span>
-          <span className="total-unit">{unit}</span>
-        </div>
-        <div className="hero-side">
-          <span className="up num">
-            <ArrowUp size={12} />
-            {rate(snapshot.txRate)}
-          </span>
-          <span className="muted">Peak {rate(peak)}</span>
-        </div>
+    <div className="hero-top">
+      <div className="total">
+        <span className="total-num">{value}</span>
+        <span className="total-unit">{unit}</span>
       </div>
-      <StreamChart links={links} colors={colors} />
-      <div className="axis">
-        <span>A minute ago</span>
-        <span>Now</span>
+      <div className="hero-side">
+        <span className="up num">
+          <ArrowUp size={12} />
+          {rate(snapshot.txRate)}
+        </span>
+        <span className="muted">Peak {rate(peak)}</span>
       </div>
-    </section>
+    </div>
   );
 }

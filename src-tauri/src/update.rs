@@ -127,8 +127,8 @@ pub fn download(release: &Release, progress: impl Fn(u8)) -> Result<PathBuf, Str
         hasher.update(&buf[..n]);
         file.write_all(&buf[..n]).map_err(|err| err.to_string())?;
         done += n as u64;
-        if release.size > 0 {
-            progress((done * 100 / release.size).min(100) as u8);
+        if let Some(percent) = (done * 100).checked_div(release.size) {
+            progress(percent.min(100) as u8);
         }
     }
     drop(file);
